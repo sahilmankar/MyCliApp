@@ -1,0 +1,5 @@
+E:\MyCliApp\bin\Debug\net7.0\publish\MyCliApp.exe
+E:\MyCliApp\bin\Debug\net7.0\publish\MyCliApp.dll
+E:\MyCliApp\bin\Debug\net7.0\publish\MyCliApp.deps.json
+E:\MyCliApp\bin\Debug\net7.0\publish\MyCliApp.runtimeconfig.json
+E:\MyCliApp\bin\Debug\net7.0\publish\MyCliApp.pdb
