@@ -1,8 +1,4 @@
 E:\MyCliApp\bin\Release\net7.0\publish\MyCliApp.exe
-E:\MyCliApp\bin\Release\net7.0\publish\Templates\s\a.txt
-E:\MyCliApp\bin\Release\net7.0\publish\Templates\s\b.txt
-E:\MyCliApp\bin\Release\net7.0\publish\Templates\w\p.txt
-E:\MyCliApp\bin\Release\net7.0\publish\Templates\w\q.txt
 E:\MyCliApp\bin\Release\net7.0\publish\MyCliApp.dll
 E:\MyCliApp\bin\Release\net7.0\publish\MyCliApp.deps.json
 E:\MyCliApp\bin\Release\net7.0\publish\MyCliApp.runtimeconfig.json

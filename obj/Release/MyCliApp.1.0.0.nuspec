@@ -11,17 +11,9 @@
   </metadata>
   <files>
     <file src="E:\MyCliApp\obj\DotnetToolSettings.xml" target="tools\net7.0\any\DotnetToolSettings.xml" />
-    <file src="E:\MyCliApp\bin\Release\net7.0\publish\Templates\s\a.txt" target="tools\net7.0\any\Templates\s\a.txt" />
-    <file src="E:\MyCliApp\bin\Release\net7.0\publish\Templates\s\b.txt" target="tools\net7.0\any\Templates\s\b.txt" />
-    <file src="E:\MyCliApp\bin\Release\net7.0\publish\Templates\w\p.txt" target="tools\net7.0\any\Templates\w\p.txt" />
-    <file src="E:\MyCliApp\bin\Release\net7.0\publish\Templates\w\q.txt" target="tools\net7.0\any\Templates\w\q.txt" />
     <file src="E:\MyCliApp\bin\Release\net7.0\publish\MyCliApp.dll" target="tools\net7.0\any\MyCliApp.dll" />
     <file src="E:\MyCliApp\bin\Release\net7.0\publish\MyCliApp.deps.json" target="tools\net7.0\any\MyCliApp.deps.json" />
     <file src="E:\MyCliApp\bin\Release\net7.0\publish\MyCliApp.runtimeconfig.json" target="tools\net7.0\any\MyCliApp.runtimeconfig.json" />
     <file src="E:\MyCliApp\bin\Release\net7.0\publish\MyCliApp.pdb" target="tools\net7.0\any\MyCliApp.pdb" />
-    <file src="E:\MyCliApp\Templates\s\a.txt" target="Templates\s\a.txt" />
-    <file src="E:\MyCliApp\Templates\s\b.txt" target="Templates\s\b.txt" />
-    <file src="E:\MyCliApp\Templates\w\p.txt" target="Templates\w\p.txt" />
-    <file src="E:\MyCliApp\Templates\w\q.txt" target="Templates\w\q.txt" />
   </files>
 </package>

@@ -9,9 +9,14 @@
     <ToolCommandName>mycli</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
   </PropertyGroup>
-<ItemGroup>
-  <None Include="Templates\**" Pack="true" PackagePath="Templates" CopyToOutputDirectory="PreserveNewest" />
 
+  <ItemGroup>
+    <None Include="Templates\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Pack>true</Pack>
+      <PackagePath>Templates</PackagePath>
+      <IncludeEmptyDirectories>true</IncludeEmptyDirectories>
+    </None>
   </ItemGroup>
 
 </Project>
