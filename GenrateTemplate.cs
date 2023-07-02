@@ -13,10 +13,8 @@ public static class GenrateTemplate
             Console.WriteLine("Templates directory not found.");
             return;
         }
-
         // Get the calling directory
         string callingDirectory = Directory.GetCurrentDirectory();
-
         // Get the template directory path
         string templateDirectoryPath = Path.Combine(templatesDirectory, templateName.ToLower());
 
@@ -42,6 +40,7 @@ public static class GenrateTemplate
         }
 
         // Copy the files
+        
         foreach (string file in Directory.GetFiles(sourceDirPath))
         {
             if (file.EndsWith("ignore"))
