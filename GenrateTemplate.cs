@@ -1,19 +1,9 @@
 namespace MyCliApp;
 
-public static class AddCommand
+public static class GenrateTemplate
 {
-    public static void Add(string[] args)
+    public static void AddTemplate(string templateName)
     {
-        // Check if the template name is provided as an argument
-        if (args.Length < 2)
-        {
-            Console.WriteLine("Please provide the template name as an argument.");
-            return;
-        }
-
-        // Get the template name provided by the user
-        string templateName = args[1];
-
         // Get the templates directory
         string templatesDirectory = Path.Combine(AppContext.BaseDirectory, "Templates");
 
