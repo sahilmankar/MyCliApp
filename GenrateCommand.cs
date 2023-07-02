@@ -19,7 +19,7 @@ public static class GenrateCommand
     public static void GenerateRepositoryClass(string className)
     {
         string newClassName = className.Substring(0, 1).ToUpper() + className.Substring(1);
-        newClassName=newClassName+"Repository";
+        newClassName = newClassName + "Repository";
         string fileName = newClassName + ".cs";
         string fileContent = GenerateRepositoryClassCode(newClassName);
 
@@ -31,10 +31,10 @@ public static class GenrateCommand
         Console.WriteLine($"Class '{newClassName}' generated successfully.");
     }
 
-     public static void GenerateServiceClass(string className)
+    public static void GenerateServiceClass(string className)
     {
         string newClassName = className.Substring(0, 1).ToUpper() + className.Substring(1);
-        string fileName = newClassName+"Service" + ".cs";
+        string fileName = newClassName + "Service" + ".cs";
         string fileContent = GenerateServiceClassCode(newClassName);
 
         string callingDirectory = Directory.GetCurrentDirectory();
@@ -42,13 +42,13 @@ public static class GenrateCommand
 
         File.WriteAllText(filePath, fileContent);
 
-        Console.WriteLine($"Class '{newClassName+"Service"}' generated successfully.");
+        Console.WriteLine($"Class '{newClassName + "Service"}' generated successfully.");
     }
 
-     public static void GenerateInterface(string interfaceName)
+    public static void GenerateInterface(string interfaceName)
     {
         string newInterfaceName = interfaceName.Substring(0, 1).ToUpper() + interfaceName.Substring(1);
-        newInterfaceName="I"+newInterfaceName;
+        newInterfaceName = "I" + newInterfaceName;
         string fileName = newInterfaceName + ".cs";
         string fileContent = GenerateInterfaceCode(newInterfaceName);
 
@@ -60,10 +60,10 @@ public static class GenrateCommand
         Console.WriteLine($"Interface '{newInterfaceName}' generated successfully.");
     }
 
-     public static void GenerateRepositoryInterface(string interfaceName)
+    public static void GenerateRepositoryInterface(string interfaceName)
     {
         string newInterfaceName = interfaceName.Substring(0, 1).ToUpper() + interfaceName.Substring(1);
-        newInterfaceName="I"+newInterfaceName+"Repository";
+        newInterfaceName = "I" + newInterfaceName + "Repository";
         string fileName = newInterfaceName + ".cs";
         string fileContent = GenerateRepositoryInterfaceCode(newInterfaceName);
 
@@ -75,11 +75,11 @@ public static class GenrateCommand
         Console.WriteLine($"Interface '{newInterfaceName}' generated successfully.");
     }
 
-      public static void GenerateServiceInterface(string interfaceName)
+    public static void GenerateServiceInterface(string interfaceName)
     {
         string newInterfaceName = interfaceName.Substring(0, 1).ToUpper() + interfaceName.Substring(1);
-        newInterfaceName="I"+newInterfaceName;
-        string fileName = newInterfaceName+"Service" + ".cs";
+        newInterfaceName = "I" + newInterfaceName;
+        string fileName = newInterfaceName + "Service" + ".cs";
         string fileContent = GenerateServiceInterfaceCode(newInterfaceName);
 
         string callingDirectory = Directory.GetCurrentDirectory();
@@ -87,7 +87,7 @@ public static class GenrateCommand
 
         File.WriteAllText(filePath, fileContent);
 
-        Console.WriteLine($"Interface '{newInterfaceName+"Service"}' generated successfully.");
+        Console.WriteLine($"Interface '{newInterfaceName + "Service"}' generated successfully.");
     }
 
 
@@ -108,7 +108,7 @@ public static class GenrateCommand
         return classCode;
     }
 
-     private static string GenerateRepositoryClassCode(string className)
+    private static string GenerateRepositoryClassCode(string className)
     {
         // Generate the code for the class using the provided className
         string classCode =
@@ -117,7 +117,7 @@ public static class GenrateCommand
             + "using MyApp.Repositories.Interfaces ;\n"
             + "namespace MyApp.Repositories ;\n"
             + "public class "
-            + className +": I"+className
+            + className + ": I" + className
             + "\n"
             + "{\n"
             + "\n"
@@ -125,7 +125,7 @@ public static class GenrateCommand
 
         return classCode;
     }
-     private static string GenerateServiceClassCode(string className)
+    private static string GenerateServiceClassCode(string className)
     {
         // Generate the code for the class using the provided className
         string classCode =
@@ -135,10 +135,10 @@ public static class GenrateCommand
             + "using MyApp.Services.Interfaces ;\n"
             + "namespace MyApp.Services ;\n"
             + "public class "
-            + className+"Service : I"+className+"Service"
+            + className + "Service : I" + className + "Service"
             + "\n"
             + "{\n"
-            + "private readonly I"+className+"Repository _repo;\n"
+            + "private readonly I" + className + "Repository _repo;\n"
             + "public " + className + "Service ( I" + className + "Repository repo )\n"
             + "{\n"
             + "this._repo = repo;\n"
@@ -149,9 +149,9 @@ public static class GenrateCommand
         return classCode;
     }
 
-     private static string GenerateInterfaceCode(string interfaceName)
+    private static string GenerateInterfaceCode(string interfaceName)
     {
-        
+
         string interfaceCode =
             "\n"
             + "namespace MyApp.Interfaces ;\n"
@@ -165,9 +165,9 @@ public static class GenrateCommand
         return interfaceCode;
     }
 
-      private static string GenerateRepositoryInterfaceCode(string interfaceName)
+    private static string GenerateRepositoryInterfaceCode(string interfaceName)
     {
-        
+
         string interfaceCode =
             "\n"
             + "using MyApp.Models;\n"
@@ -181,15 +181,15 @@ public static class GenrateCommand
 
         return interfaceCode;
     }
-      private static string GenerateServiceInterfaceCode(string interfaceName)
+    private static string GenerateServiceInterfaceCode(string interfaceName)
     {
-        
+
         string interfaceCode =
             "\n"
             + "using MyApp.Repositories.Interfaces;\n"
             + "namespace MyApp.Services.Interfaces ;\n"
             + "public interface "
-            + interfaceName+"Service : "+interfaceName+"Repository"
+            + interfaceName + "Service : " + interfaceName + "Repository"
             + "\n"
             + "{\n"
             + "\n"
