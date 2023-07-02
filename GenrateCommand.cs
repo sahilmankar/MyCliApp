@@ -79,7 +79,7 @@ public static class GenrateCommand
     {
         string newInterfaceName = interfaceName.Substring(0, 1).ToUpper() + interfaceName.Substring(1);
         newInterfaceName="I"+newInterfaceName;
-        string fileName = newInterfaceName + ".cs";
+        string fileName = newInterfaceName+"Service" + ".cs";
         string fileContent = GenerateServiceInterfaceCode(newInterfaceName);
 
         string callingDirectory = Directory.GetCurrentDirectory();

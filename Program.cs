@@ -5,68 +5,78 @@
         static void Main(string[] args)
         {
             try
-            {  if (args.Length == 0)
+            {
+                if (args.Length == 0)
                 {
                     Console.WriteLine("No command specified.");
                     return;
                 }
-                switch (args[0])
+
+                var commandMap = new Dictionary<string, Action<string, string>>(
+                    StringComparer.OrdinalIgnoreCase
+                )
                 {
-                    case "generate":
-                    case "g":
-                     if (args.Length == 1)
-                        {
-                            Console.WriteLine("Provide type class or interface or template");
-                            return;
-                        }
-                        if (args.Length == 2)
-                        {
-                            Console.WriteLine("Provide class name or interface name");
-                            return;
-                        }
+                    { "generate", Generate },
+                    { "g", Generate }
+                };
 
-                        if (args[1] == "template" || args[1] == "t")
-                        {
-                            GenrateTemplate.AddTemplate(args[2]);
-                        }
-                        else if (args[1] == "class" || args[1] == "c")
-                        {
-                            GenrateCommand.GenerateClass(args[2]);
-                        }
-                        else if (args[1] == "rclass" || args[1] == "rc")
-                        {
-                            GenrateCommand.GenerateRepositoryClass(args[2]);
-                        }
-                        else if (args[1] == "sclass" || args[1] == "sc")
-                        {
-                            GenrateCommand.GenerateServiceClass(args[2]);
-                        }
-                        else if (args[1] == "interface" || args[1] == "i")
-                        {
-                            GenrateCommand.GenerateInterface(args[2]);
-                        }
-                        else if (args[1] == "rinterface" || args[1] == "ri")
-                        {
-                            GenrateCommand.GenerateRepositoryInterface(args[2]);
-                        }
-                        else if (args[1] == "sinterface" || args[1] == "si")
-                        {
-                            GenrateCommand.GenerateServiceInterface(args[2]);
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Invalid command  {args[1]}");
-                        }
-                        break;
-
-                    default:
-                        Console.WriteLine($"Invalid command {args[0]}");
-                        break;
+                if (commandMap.TryGetValue(args[0], out var command))
+                {
+                    if (args.Length == 3)
+                    {
+                        command.Invoke(args[1], args[2]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Missing command or argument");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Invalid command: {args[0]}");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
+            }
+        }
+
+        static void Generate(string type, string name)
+        {
+            if (type == null)
+            {
+                Console.WriteLine("Provide type class or interface or template");
+                return;
+            }
+
+            var generateMap = new Dictionary<string, Action<string>>(
+                StringComparer.OrdinalIgnoreCase
+            )
+            {
+                { "template", GenrateTemplate.AddTemplate },
+                { "t", GenrateTemplate.AddTemplate },
+                { "class", GenrateCommand.GenerateClass },
+                { "c", GenrateCommand.GenerateClass },
+                { "rclass", GenrateCommand.GenerateRepositoryClass },
+                { "rc", GenrateCommand.GenerateRepositoryClass },
+                { "sclass", GenrateCommand.GenerateServiceClass },
+                { "sc", GenrateCommand.GenerateServiceClass },
+                { "interface", GenrateCommand.GenerateInterface },
+                { "i", GenrateCommand.GenerateInterface },
+                { "rinterface", GenrateCommand.GenerateRepositoryInterface },
+                { "ri", GenrateCommand.GenerateRepositoryInterface },
+                { "sinterface", GenrateCommand.GenerateServiceInterface },
+                { "si", GenrateCommand.GenerateServiceInterface }
+            };
+
+            if (generateMap.TryGetValue(type, out var generateAction))
+            {
+                generateAction.Invoke(name);
+            }
+            else
+            {
+                Console.WriteLine($"Invalid type: {type}");
             }
         }
     }

@@ -18,7 +18,7 @@ public static class GenrateTemplate
         string callingDirectory = Directory.GetCurrentDirectory();
 
         // Get the template directory path
-        string templateDirectoryPath = Path.Combine(templatesDirectory, templateName);
+        string templateDirectoryPath = Path.Combine(templatesDirectory, templateName.ToLower());
 
         // Check if the template directory exists
         if (!Directory.Exists(templateDirectoryPath))
