@@ -67,7 +67,9 @@
                 { "rinterface", GenrateCommand.GenerateRepositoryInterface },
                 { "ri", GenrateCommand.GenerateRepositoryInterface },
                 { "sinterface", GenrateCommand.GenerateServiceInterface },
-                { "si", GenrateCommand.GenerateServiceInterface }
+                { "si", GenrateCommand.GenerateServiceInterface },
+                { "controller", GenrateCommand.GenerateController },
+                { "co", GenrateCommand.GenerateController }
             };
 
             if (generateMap.TryGetValue(type, out var generateAction))
