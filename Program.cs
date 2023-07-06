@@ -62,6 +62,8 @@
                 { "rc", GenrateCommand.GenerateRepositoryClass },
                 { "sclass", GenrateCommand.GenerateServiceClass },
                 { "sc", GenrateCommand.GenerateServiceClass },
+                { "efclass", GenrateCommand.GenerateEFClass },
+                { "efc", GenrateCommand.GenerateEFClass },
                 { "interface", GenrateCommand.GenerateInterface },
                 { "i", GenrateCommand.GenerateInterface },
                 { "rinterface", GenrateCommand.GenerateRepositoryInterface },
