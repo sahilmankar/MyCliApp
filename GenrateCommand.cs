@@ -18,69 +18,98 @@ public static class GenrateCommand
     {
         className = CapitalizeFirstLetter(className);
         string fileName = className + ".cs";
-        string fileContent = GenerateClassCode(className);
         string callingDirectory = Directory.GetCurrentDirectory();
         string filePath = Path.Combine(callingDirectory, fileName);
-
-        File.WriteAllText(filePath, fileContent);
-
-        Console.WriteLine($"Class '{className}' generated successfully.");
+        if (!File.Exists(filePath))
+        {
+            string fileContent = GenerateClassCode(className);
+            File.WriteAllText(filePath, fileContent);
+            Console.WriteLine($"Class '{className}' generated successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"File '{fileName}' already exists. Skipping file creation.");
+        }
     }
 
     public static void GenerateRepositoryClass(string className)
     {
         className = CapitalizeFirstLetter(className);
         string fileName = className + "Repository" + ".cs";
-        string fileContent = GenerateRepositoryClassCode(className);
 
         string callingDirectory = Directory.GetCurrentDirectory();
         string filePath = Path.Combine(callingDirectory, fileName);
 
-        File.WriteAllText(filePath, fileContent);
-
-        Console.WriteLine($"Class '{className + "Repository"}' generated successfully.");
+        if (!File.Exists(filePath))
+        {
+            string fileContent = GenerateRepositoryClassCode(className);
+            File.WriteAllText(filePath, fileContent);
+            Console.WriteLine($"Class '{className + "Repository"}' generated successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"File '{fileName}' already exists. Skipping file creation.");
+        }
     }
 
     public static void GenerateServiceClass(string className)
     {
         className = CapitalizeFirstLetter(className);
         string fileName = className + "Service" + ".cs";
-        string fileContent = GenerateServiceClassCode(className);
 
         string callingDirectory = Directory.GetCurrentDirectory();
         string filePath = Path.Combine(callingDirectory, fileName);
 
-        File.WriteAllText(filePath, fileContent);
-
-        Console.WriteLine($"Class '{className + "Service"}' generated successfully.");
+        if (!File.Exists(filePath))
+        {
+            string fileContent = GenerateServiceClassCode(className);
+            File.WriteAllText(filePath, fileContent);
+            Console.WriteLine($"Class '{className + "Service"}' generated successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"File '{fileName}' already exists. Skipping file creation.");
+        }
     }
 
     public static void GenerateEFClass(string className)
     {
         className = CapitalizeFirstLetter(className);
         string fileName = className + "Context" + ".cs";
-        string fileContent = GenerateEFClassCode(className);
 
         string callingDirectory = Directory.GetCurrentDirectory();
         string filePath = Path.Combine(callingDirectory, fileName);
 
-        File.WriteAllText(filePath, fileContent);
-
-        Console.WriteLine($"Class '{className + "Context"}' generated successfully.");
+        if (!File.Exists(filePath))
+        {
+            string fileContent = GenerateEFClassCode(className);
+            File.WriteAllText(filePath, fileContent);
+            Console.WriteLine($"Class '{className + "Context"}' generated successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"File '{fileName}' already exists. Skipping file creation.");
+        }
     }
 
     public static void GenerateInterface(string interfaceName)
     {
         interfaceName = CapitalizeFirstLetter(interfaceName);
         string fileName = "I" + interfaceName + ".cs";
-        string fileContent = GenerateInterfaceCode(interfaceName);
 
         string callingDirectory = Directory.GetCurrentDirectory();
         string filePath = Path.Combine(callingDirectory, fileName);
 
-        File.WriteAllText(filePath, fileContent);
-
-        Console.WriteLine($"Interface '{"I" + interfaceName}' generated successfully.");
+        if (!File.Exists(filePath))
+        {
+            string fileContent = GenerateInterfaceCode(interfaceName);
+            File.WriteAllText(filePath, fileContent);
+            Console.WriteLine($"Interface '{"I" + interfaceName}' generated successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"File '{fileName}' already exists. Skipping file creation.");
+        }
     }
 
     public static void GenerateRepositoryInterface(string interfaceName)
@@ -88,30 +117,44 @@ public static class GenrateCommand
         interfaceName = CapitalizeFirstLetter(interfaceName);
 
         string fileName = "I" + interfaceName + "Repository" + ".cs";
-        string fileContent = GenerateRepositoryInterfaceCode(interfaceName);
 
         string callingDirectory = Directory.GetCurrentDirectory();
         string filePath = Path.Combine(callingDirectory, fileName);
 
-        File.WriteAllText(filePath, fileContent);
-
-        Console.WriteLine(
-            $"Interface '{"I" + interfaceName + "Repository"}' generated successfully."
-        );
+        if (!File.Exists(filePath))
+        {
+            string fileContent = GenerateRepositoryInterfaceCode(interfaceName);
+            File.WriteAllText(filePath, fileContent);
+            Console.WriteLine(
+                $"Interface '{"I" + interfaceName + "Repository"}' generated successfully."
+            );
+        }
+        else
+        {
+            Console.WriteLine($"File '{fileName}' already exists. Skipping file creation.");
+        }
     }
 
     public static void GenerateServiceInterface(string interfaceName)
     {
         interfaceName = CapitalizeFirstLetter(interfaceName);
         string fileName = "I" + interfaceName + "Service" + ".cs";
-        string fileContent = GenerateServiceInterfaceCode(interfaceName);
 
         string callingDirectory = Directory.GetCurrentDirectory();
         string filePath = Path.Combine(callingDirectory, fileName);
 
-        File.WriteAllText(filePath, fileContent);
-
-        Console.WriteLine($"Interface '{"I" + interfaceName + "Service"}' generated successfully.");
+        if (!File.Exists(filePath))
+        {
+            string fileContent = GenerateServiceInterfaceCode(interfaceName);
+            File.WriteAllText(filePath, fileContent);
+            Console.WriteLine(
+                $"Interface '{"I" + interfaceName + "Service"}' generated successfully."
+            );
+        }
+        else
+        {
+            Console.WriteLine($"File '{fileName}' already exists. Skipping file creation.");
+        }
     }
 
     public static void GenerateController(string controllerName)
@@ -119,14 +162,22 @@ public static class GenrateCommand
         controllerName = CapitalizeFirstLetter(controllerName);
 
         string fileName = controllerName + "Controller" + ".cs";
-        string fileContent = GenerateControllerCode(controllerName);
 
         string callingDirectory = Directory.GetCurrentDirectory();
         string filePath = Path.Combine(callingDirectory, fileName);
 
-        File.WriteAllText(filePath, fileContent);
-
-        Console.WriteLine($"Controller '{controllerName + "Controller"}' generated successfully.");
+        if (!File.Exists(filePath))
+        {
+            string fileContent = GenerateControllerCode(controllerName);
+            File.WriteAllText(filePath, fileContent);
+            Console.WriteLine(
+                $"Controller '{controllerName + "Controller"}' generated successfully."
+            );
+        }
+        else
+        {
+            Console.WriteLine($"File '{fileName}' already exists. Skipping file creation.");
+        }
     }
 
     private static string ReplaceNamespaceAndClassName(string code, string name)
