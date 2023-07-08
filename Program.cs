@@ -56,6 +56,7 @@
             {
                 { "template", GenrateTemplate.AddTemplate },
                 { "t", GenrateTemplate.AddTemplate },
+                { "all", GenrateCommand.GenerateAllStructure },
                 { "class", GenrateCommand.GenerateClass },
                 { "c", GenrateCommand.GenerateClass },
                 { "rclass", GenrateCommand.GenerateRepositoryClass },

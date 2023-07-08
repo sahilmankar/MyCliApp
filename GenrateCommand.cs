@@ -18,8 +18,8 @@ public static class GenrateCommand
     {
         className = CapitalizeFirstLetter(className);
         string fileName = className + ".cs";
-        string callingDirectory = Directory.GetCurrentDirectory();
-        string filePath = Path.Combine(callingDirectory, fileName);
+        // string callingDirectory = Directory.GetCurrentDirectory();
+        string filePath = Path.Combine("Models", fileName);
         if (!File.Exists(filePath))
         {
             string fileContent = GenerateClassCode(className);
@@ -37,8 +37,8 @@ public static class GenrateCommand
         className = CapitalizeFirstLetter(className);
         string fileName = className + "Repository" + ".cs";
 
-        string callingDirectory = Directory.GetCurrentDirectory();
-        string filePath = Path.Combine(callingDirectory, fileName);
+        // string callingDirectory = Directory.GetCurrentDirectory();
+        string filePath = Path.Combine("Repositories", fileName);
 
         if (!File.Exists(filePath))
         {
@@ -57,8 +57,8 @@ public static class GenrateCommand
         className = CapitalizeFirstLetter(className);
         string fileName = className + "Service" + ".cs";
 
-        string callingDirectory = Directory.GetCurrentDirectory();
-        string filePath = Path.Combine(callingDirectory, fileName);
+        // string callingDirectory = Directory.GetCurrentDirectory();
+        string filePath = Path.Combine("Services", fileName);
 
         if (!File.Exists(filePath))
         {
@@ -77,8 +77,8 @@ public static class GenrateCommand
         className = CapitalizeFirstLetter(className);
         string fileName = className + "Context" + ".cs";
 
-        string callingDirectory = Directory.GetCurrentDirectory();
-        string filePath = Path.Combine(callingDirectory, fileName);
+        // string callingDirectory = Directory.GetCurrentDirectory();
+        string filePath = Path.Combine("Repositories/Contexts", fileName);
 
         if (!File.Exists(filePath))
         {
@@ -118,8 +118,8 @@ public static class GenrateCommand
 
         string fileName = "I" + interfaceName + "Repository" + ".cs";
 
-        string callingDirectory = Directory.GetCurrentDirectory();
-        string filePath = Path.Combine(callingDirectory, fileName);
+        // string callingDirectory = Directory.GetCurrentDirectory();
+        string filePath = Path.Combine("Repositories/Interfaces", fileName);
 
         if (!File.Exists(filePath))
         {
@@ -140,8 +140,8 @@ public static class GenrateCommand
         interfaceName = CapitalizeFirstLetter(interfaceName);
         string fileName = "I" + interfaceName + "Service" + ".cs";
 
-        string callingDirectory = Directory.GetCurrentDirectory();
-        string filePath = Path.Combine(callingDirectory, fileName);
+        // string callingDirectory = Directory.GetCurrentDirectory();
+        string filePath = Path.Combine("Services/Interfaces", fileName);
 
         if (!File.Exists(filePath))
         {
@@ -163,8 +163,8 @@ public static class GenrateCommand
 
         string fileName = controllerName + "Controller" + ".cs";
 
-        string callingDirectory = Directory.GetCurrentDirectory();
-        string filePath = Path.Combine(callingDirectory, fileName);
+        // string callingDirectory = Directory.GetCurrentDirectory();
+        string filePath = Path.Combine("Controllers", fileName);
 
         if (!File.Exists(filePath))
         {
@@ -177,6 +177,112 @@ public static class GenrateCommand
         else
         {
             Console.WriteLine($"File '{fileName}' already exists. Skipping file creation.");
+        }
+    }
+
+    public static void GenerateAllStructure(string className)
+    {
+        if (TemplatesNeeded())
+        {
+            SelectTemplate();
+        }
+
+        GenerateFolders(className);
+    }
+
+    private static bool TemplatesNeeded()
+    {
+        string[] foldersToCheck =
+        {
+            "controllers",
+            "Models",
+            "Repositories",
+            "Repositories/Interfaces",
+            "Services",
+            "Services/Interfaces",
+            "Repositories/Contexts"
+        };
+
+        return !foldersToCheck.Any(Directory.Exists);
+    }
+
+    private static void SelectTemplate()
+    {
+        Console.WriteLine("1. Entity Framework Repository Pattern");
+        Console.WriteLine("2. Simple Repository Pattern");
+        Console.WriteLine("Select template:");
+
+        string userInput = Console.ReadLine();
+
+        try
+        {
+            int templateSelection = int.Parse(userInput);
+
+            switch (templateSelection)
+            {
+                case 1:
+                    Console.WriteLine("You selected Entity Framework Repository Pattern.");
+                    GenrateTemplate.AddTemplate("efrp");
+                    break;
+
+                case 2:
+                    Console.WriteLine("You selected Simple Repository Pattern.");
+                    GenrateTemplate.AddTemplate("rp");
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid template selection.");
+                    break;
+            }
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid input. Please enter a valid number.");
+        }
+    }
+
+    private static void GenerateFolders(string className)
+    {
+        string[] foldersToCheck =
+        {
+            "controllers",
+            "Models",
+            "Repositories/Interfaces",
+            "Services/Interfaces",
+            "Repositories",
+            "Repositories/Contexts",
+            "Services"
+        };
+
+        foreach (string folderPath in foldersToCheck)
+        {
+            if (Directory.Exists(folderPath))
+            {
+                switch (folderPath)
+                {
+                    case "controllers":
+                        GenerateController(className);
+                        break;
+                    case "Models":
+                        GenerateClass(className);
+                        break;
+                    case "Repositories/Interfaces":
+                        GenerateRepositoryInterface(className);
+                        break;
+                    case "Services/Interfaces":
+                        GenerateServiceInterface(className);
+                        break;
+                    case "Repositories":
+                        GenerateRepositoryClass(className);
+                        break;
+                    case "Repositories/Contexts":
+                        GenerateEFClass(className);
+                        break;
+                    case "Services":
+                        GenerateServiceClass(className);
+                        break;
+                }
+            }
         }
     }
 
@@ -245,7 +351,7 @@ namespace MyApp.Repositories.Contexts
         private readonly IConfiguration _configuration;
         private readonly string? _conString;
 
-        public FarmersContext(IConfiguration configuration)
+        public TemplateContext(IConfiguration configuration)
         {
             _configuration = configuration;
             _conString =
@@ -277,12 +383,20 @@ namespace MyApp.Repositories.Contexts
             @"
 using MyApp.Models;
 using MyApp.Repositories.Interfaces;
+using MyApp.Repositories.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace MyApp.Repositories
 {
     public class TemplateRepository : ITemplateRepository
     { 
+        private readonly IConfiguration _configuration;
 
+        public TemplateRepository(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
     }
 }";
         return ReplaceNamespaceAndClassName(code, className);
