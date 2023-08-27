@@ -194,7 +194,7 @@ public static class GenrateCommand
     {
         string[] foldersToCheck =
         {
-            "controllers",
+            // "controllers",
             "Models",
             "Repositories",
             "Repositories/Interfaces",
@@ -212,10 +212,16 @@ public static class GenrateCommand
         Console.WriteLine("2. Simple Repository Pattern");
         Console.WriteLine("Select template:");
 
-        string userInput = Console.ReadLine();
+        string? userInput = Console.ReadLine();
 
         try
         {
+            if (userInput is null)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+                return;
+            }
+
             int templateSelection = int.Parse(userInput);
 
             switch (templateSelection)
@@ -304,20 +310,19 @@ using MyApp.Models;
 using MyApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MyApp.Controllers
+namespace MyApp.Controllers;
+
+[ApiController]
+[Route(""/api/[controller]"")]
+public class TemplateController : ControllerBase
 {
-    [ApiController]
-    [Route(""/api/[controller]"")]
-    public class TemplateController : ControllerBase
+    private readonly ITemplateService _service;
+
+    public TemplateController(ITemplateService service)
     {
-        private readonly ITemplateService _srv;
-
-        public TemplateController(ITemplateService srv)
-        {
-            _srv = srv;
-        }
-
+        _service = service;
     }
+
 }";
         return ReplaceNamespaceAndClassName(code, controllerName);
     }
@@ -326,12 +331,11 @@ namespace MyApp.Controllers
     {
         string code =
             @"
-namespace MyApp.Models
+namespace MyApp.Models;
+
+public class Template
 {
-    public class Template
-    {
-      
-    }
+    
 }";
         return ReplaceNamespaceAndClassName(code, className);
     }
@@ -344,33 +348,31 @@ using MyApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
-namespace MyApp.Repositories.Contexts
+namespace MyApp.Repositories.Contexts;
+public class TemplateContext : DbContext
 {
-    public class TemplateContext : DbContext
+    private readonly IConfiguration _configuration;
+    private readonly string? _conString;
+
+    public TemplateContext(IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
-        private readonly string? _conString;
+        _configuration = configuration;
+        _conString =
+            this._configuration.GetConnectionString(""DefaultConnection"")
+            ?? throw new ArgumentNullException(nameof(configuration));
+    }
 
-        public TemplateContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _conString =
-                this._configuration.GetConnectionString(""DefaultConnection"")
-                ?? throw new ArgumentNullException(nameof(configuration));
-        }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseMySQL(
+            _conString ?? throw new InvalidOperationException(""Connection string is null."")
+        );
+        optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
+    }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySQL(
-                _conString ?? throw new InvalidOperationException(""Connection string is null."")
-            );
-            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
     }
 }";
         return ReplaceNamespaceAndClassName(code, className);
@@ -387,16 +389,14 @@ using MyApp.Repositories.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace MyApp.Repositories
-{
-    public class TemplateRepository : ITemplateRepository
-    { 
-        private readonly IConfiguration _configuration;
+namespace MyApp.Repositories;
+public class TemplateRepository : ITemplateRepository
+{ 
+    private readonly IConfiguration _configuration;
 
-        public TemplateRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+    public TemplateRepository(IConfiguration configuration)
+    {
+        _configuration = configuration;
     }
 }";
         return ReplaceNamespaceAndClassName(code, className);
@@ -411,16 +411,14 @@ using MyApp.Services.Interfaces;
 using MyApp.Repositories.Interfaces;
 using MyApp.Models;
 
-namespace MyApp.Services
+namespace MyApp.Services;
+public class TemplateService : ITemplateService
 {
-    public class TemplateService : ITemplateService
-    {
-        private readonly ITemplateRepository _repo;
+    private readonly ITemplateRepository _repository;
 
-        public TemplateService(ITemplateRepository repo)
-        {
-            _repo = repo;
-        }
+    public TemplateService(ITemplateRepository repository)
+    {
+        _repository = repository;
     }
 }";
         return ReplaceNamespaceAndClassName(code, className);
@@ -430,12 +428,10 @@ namespace MyApp.Services
     {
         string code =
             @"
-namespace MyApp.Interfaces
+namespace MyApp.Interfaces;
+public interface ITemplate
 {
-    public interface ITemplate
-    {
-      
-    }
+    
 }";
         return ReplaceNamespaceAndClassName(code, interfaceName);
     }
@@ -446,12 +442,10 @@ namespace MyApp.Interfaces
             @"
 using MyApp.Models;
 
-namespace MyApp.Repositories.Interfaces
+namespace MyApp.Repositories.Interfaces;
+public interface ITemplateRepository
 {
-    public interface ITemplateRepository
-    {
 
-    }
 }";
         return ReplaceNamespaceAndClassName(code, interfaceName);
     }
@@ -462,13 +456,11 @@ namespace MyApp.Repositories.Interfaces
             @"
 using MyApp.Repositories.Interfaces;
 
-namespace MyApp.Services.Interfaces
+namespace MyApp.Services.Interfaces;
+public interface ITemplateService:ITemplateRepository
 {
-    public interface ITemplateService:ITemplateRepository
-    {
 
-    } 
-}";
+} ";
         return ReplaceNamespaceAndClassName(code, interfaceName);
     }
 }

@@ -2,7 +2,7 @@ namespace MyCliApp;
 
 public static class NamespceFinder
 {
-    public static string FindCsprojFile(string directory)
+    public static string? FindCsprojFile(string directory)
     {
         string[] csprojFiles = Directory.GetFiles(directory, "*.csproj");
         if (csprojFiles.Length > 0)
@@ -13,7 +13,7 @@ public static class NamespceFinder
             return namespceName;
         }
 
-        string parentDirectory = Directory.GetParent(directory)?.FullName;
+        string? parentDirectory = Directory.GetParent(directory)?.FullName;
         if (parentDirectory != null)
         {
             return FindCsprojFile(parentDirectory);
