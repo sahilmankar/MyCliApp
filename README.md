@@ -27,6 +27,8 @@ MyCliApp supports the following commands:
 
 Usage: `dt [command] [type] [classname]`
 
+For command line help `dt --help`
+
 Available commands:
 
 - **generate**, **g**: Generate class, interface, or template.
