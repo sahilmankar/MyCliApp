@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+
 namespace MyCliApp;
 
 public static class GenrateTemplate
